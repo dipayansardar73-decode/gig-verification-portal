@@ -79,4 +79,3 @@ This project uses a monorepo structure.
 
 ---
 
-Built for **Smart India Hackathon** / **Safety Tech Challenge** 2025.
