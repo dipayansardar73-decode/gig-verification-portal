@@ -1,5 +1,5 @@
 # Gig Verification Portal 🛡️
-
+# Developed by : Dipayan Sardar
 A secure, real-time verification and risk-scoring platform for gig workers (delivery, ride-sharing, services). Enables police and authorized agencies to verify worker identities, check criminal history, and assess risk scores instantly.
 
 ![Gig Verify Banner](https://via.placeholder.com/1200x400?text=Gig+Verification+Platform)
