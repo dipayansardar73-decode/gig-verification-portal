@@ -1,0 +1,59 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String?  // Made optional to avoid migration conflict, or we can squash
+  password  String
+  role      String   // POLICE, PLATFORM_ADMIN, SUPER_ADMIN
+  agency    String?  // Police Station name or Company name
+  createdAt DateTime @default(now())
+}
+
+model Worker {
+  id        String   @id @default(uuid())
+  name      String
+  phone     String   @unique
+  govId     String?  @unique
+  employer  String
+  role      String
+  riskLevel String   @default("LOW") // LOW, MEDIUM, HIGH
+  riskScore Int      @default(0)
+  status    String   @default("VERIFIED")
+  photoUrl  String?
+  latitude  Float?
+  longitude Float?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  incidents Incident[]
+}
+
+model Incident {
+  id          String   @id @default(uuid())
+  workerId    String
+  worker      Worker   @relation(fields: [workerId], references: [id])
+  type        String   // THEFT, HARASSMENT, FRAUD
+  severity    String   // HIGH, MEDIUM, LOW
+  description String
+  date        DateTime @default(now())
+  source      String   // POLICE, EMPLOYER, USER_REPORT
+  category    String?
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  workerId  String?
+  action    String   // SEARCH, VIEW_PROFILE
+  timestamp DateTime @default(now())
+  details   String?
+}
